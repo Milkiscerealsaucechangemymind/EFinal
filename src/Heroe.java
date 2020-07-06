@@ -9,6 +9,7 @@ public class Heroe {
     protected int asesinatos;
     protected int turno;
     protected Objeto[] inventario;
+    protected int numObjetos;
 
     public Heroe() {
     }
@@ -20,6 +21,16 @@ public class Heroe {
         this.inventario=new Objeto[6];
         this.vidas=3;
     }
+
+    public int getNumObjetos() {
+        return numObjetos;
+    }
+
+    public void setNumObjetos(int numObjetos) {
+        this.numObjetos = numObjetos;
+    }
+    
+    
 
     public int getVida() {
         return vida;
@@ -103,6 +114,26 @@ public class Heroe {
         this.turno = turno;
     }
     
+    public void agregarObjeto(Objeto o){
+        int i=0;
+        while(this.inventario[i]!=null){
+            i++;
+        }
+        this.inventario[i]=o;
+        if("Magia".equals(o.getInfo())){
+                this.magia+=o.getAumento();
+            }else if("Fuerza".equals(o.getInfo())){
+                this.fuerza+=o.getAumento();
+            }
+        this.numObjetos++;
+    }
     
+    public int numObjetos(){
+        int i=0;
+        while(this.inventario[i]!=null){
+            i++;
+        }
+        return i;
+    }
     
 }

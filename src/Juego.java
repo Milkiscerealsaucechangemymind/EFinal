@@ -16,6 +16,12 @@ public class Juego {
         this.turnos=new Cola();
         this.nivel=1;
     }
+    
+    //Cambiar tamaño arreglo héroes
+    public void resizeHeroes(int size){
+        Heroe[] temp=new Heroe[size];
+        this.heroes=temp;    
+    }
 
     //Getters y Setters
 
@@ -63,6 +69,25 @@ public class Juego {
     
     
     //Métodos del juego
+    
+    public void ordenar(){
+        Heroe aux=new Heroe();
+        for(int i=0;i<heroes.length-1;i++){
+            for(int j=0;j<heroes.length-1;j++){
+                if(heroes[j].getTurno()>heroes[j+1].getTurno()){
+                    aux=heroes[j];
+                    heroes[j]=heroes[j+1];
+                    heroes[j+1]=aux;
+                }
+            }
+        }
+        //Guarda en la cola los nombres de los heroes segun el turno (juegan primero los que sacaron menos)
+        
+        for(Heroe h: this.heroes){
+            this.turnos.enqueue(h.getNombre());
+        }
+    }
+    
     public void ordenarHeroesxTurno(){
         this.asignarTurnos();
         Heroe aux=new Heroe();
@@ -169,6 +194,15 @@ public class Juego {
             Sacerdote h=new Sacerdote(nombre);
             heroes[i]=h;
         }      
+    }
+    
+    public void addHeroe(Heroe h){
+        for(int i=0;i<this.heroes.length;i++){
+            if(this.heroes[i]==null){
+                this.heroes[i]=h;
+                break;
+            }
+        }
     }
     
     public Heroe buscarHeroexNombre(String nombre){
@@ -320,6 +354,14 @@ public class Juego {
     
     public void aumentarNivel(){
         this.nivel++;
+    }
+    
+    public String nombresH(){
+        String salida="";
+        for(Heroe hh: heroes){
+            salida+=hh.getNombre()+"\n";
+        }
+        return salida;
     }
     
 }
